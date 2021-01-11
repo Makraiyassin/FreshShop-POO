@@ -8,6 +8,8 @@ let i = 0;
 let arrayPrice =[]
 let sum;
 
+let badge=0;
+
 document.querySelectorAll(".addtocart").forEach(element=>{
 
     element.addEventListener("click", function() {
@@ -34,6 +36,9 @@ document.querySelectorAll(".addtocart").forEach(element=>{
             
             document.getElementById("total").innerHTML= `<strong>Total</strong>: ${(Math.round(sum*100)/100)}$`;
             mycart.total=(Math.round(sum*100)/100)
+
+            badge++
+            document.querySelector('#badge').textContent=badge
             //======================================================================================================
             //CART (PAGE)
 
@@ -61,6 +66,8 @@ document.querySelectorAll(".addtocart").forEach(element=>{
             document.getElementById("total").innerHTML= `<strong>Total</strong>: ${(Math.round(sum*100)/100)}$`;
             mycart.total=(Math.round(sum*100)/100)
 
+            badge++
+            document.querySelector('#badge').textContent=badge
             //======================================================================================================
             //CART (PAGE)
 
