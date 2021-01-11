@@ -1,147 +1,57 @@
 const express = require('express');
 const app = express();
+// const bcrypt = require('bcrypt')
+const bodyParser = require('body-parser');
 
-//models
-const Message = require("./models/message");
-const User = require("./models/users.js");
-const Newsletter = require("./models/newsletter");
+const port = process.env.PORT || 3000;
+
+//ROUTES (importe les route defini dans le dossier "routes")
+const router = require('./routes/router');
+const LogReg_router = require('./routes/login-register');
+const newsletter_router=  require('./routes/newsletter');
+const contact_router=  require('./routes/contact');
+
+const mycart_router=  require('./routes/mycart');
+const search_router=  require('./routes/search');
 
 
-//session 
+//CONNECTION A LA BASE DE DONNEE
+const db = require("./models/db");
+
+//SESSION
 const session = require('express-session');
 
 // Moteur de template
 app.set('view engine','ejs');
-
 
 //Midleware 
 
     // front-end (css + js)
     app.use('/public',express.static('public'));
 
-    //body parser
-    app.use(express.urlencoded({ extended: false }));
+    //body parser 
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
+
+    //SESSION
+    app.use(session({
+        secret: 'azerty',
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: false }
+    }))
 
 
-//Routes
-     
-//==================================================================    
-// HOME
+    //Routes (utilise les route defini dans le dossier "routes")
+    app.use(router)
+    app.use(LogReg_router)
+    app.use(newsletter_router)
+    app.use(contact_router)
+    app.use(mycart_router)
+    app.use(search_router)
 
-app.get("/",(req, res) => {
-    res.render("index");
-});
 
-//==================================================================    
-// NEWSLETTER
 
-app.post('/',(req,res)=>{
-    let mail = new Newsletter({ mail: req.body.email});
-    mail.save(function (err, mail) {
-        if (err){console.log(err);}else{console.log(mail);}
-    });
-    res.redirect('/');
-})
-
-//==================================================================
-//CONTACT
-
-app.get("/contact-us",(req, res) => {
-    res.render("contact-us");
-});
-
-app.post('/contact-us',(req,res)=>{
-    let msg = new Message({ 
-        name:req.body.name, 
-        mail: req.body.email,
-        subject: req.body.subject,
-        message: req.body.message
-    });
-
-    msg.save(function (err, msg) {
-        if (err){console.log(err);}else{console.log(msg);}
-    });
-    res.redirect('/contact-us');
-})
-
-//==================================================================
-// LOGIN
-app.get("/login",(req, res) => {
-    res.render("login");
-});
-
-app.post('/login',(req,res)=>{
-    let user = new User({ 
-        firstname: req.body.fname,
-        lastname: req.body.lname,
-        mail: req.body.email,
-        pass: req.body.pass,
-    });
-
-    user.save(function (err, user) {
-        if (err){console.log(err);}else{console.log(user);}
-    });
-    res.redirect('/login');
-})
-
-//==================================================================
-// ABOUT
-
-app.get("/about",(req, res) => {
-    res.render("about");
-});
-
-//==================================================================
-// GALLERY
-
-app.get("/gallery",(req, res) => {
-    res.render("gallery");
-});
-
-//==================================================================
-// SHOP
-
-app.get("/shop",async(req, res) => {
-    res.render("shop");
-});
-
-//==================================================================
-// MY-ACCOUNT
-
-app.get("/my-account",(req, res) => {
-    res.render("my-account");
-});
-
-//==================================================================
-// CART
-
-app.get("/cart",(req, res) => {
-    res.render("cart");
-});
-
-//==================================================================
-// SHOP-DETAIL
-
-app.get("/shop-detail",(req, res) => {
-    res.render("shop-detail");
-});
-
-//==================================================================
-// WISHLIST
-
-app.get("/wishlist",(req, res) => {
-    res.render("wishlist");
-});
-
-//=================================================================
-// CHECKOUT
-
-app.get("/checkout",(req, res) => {
-    res.render("checkout");
-});
-
-//==================================================================
-
-app.listen(8080);
+app.listen(port);
 
 console.log('serveur ok');

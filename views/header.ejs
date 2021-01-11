@@ -56,6 +56,9 @@
                             <li><a href="/my-account"><i class="fa fa-user s_color"></i> My Account</a></li>
                             <li><a href="#"><i class="fas fa-location-arrow"></i> Our location</a></li>
                             <li><a href="/contact-us"><i class="fas fa-headset"></i> Contact Us</a></li>
+                            <%if(connect){%>
+                                <li class="font-weight-bold text-danger"> Welcome <%= firstname %></li>
+                            <%}%>
                         </ul>
                     </div>
                 </div>
@@ -65,8 +68,15 @@
 							<option>Register Here</option>
 							<option>Sign In</option>
                         </select> -->
-                        <a href="/login" id="login-register" class="selectpicker show-tick form-control text-white" style="background-color: #b0b435;">login/subscribe </a>
-					</div>
+                        <%if(connect){%>
+                            <form method="POST" action="/logout">
+                                <input type="submit" value="logout" class="selectpicker show-tick form-control text-white" style="background-color: #ca4147;">
+                            </form>
+                            <!-- <a href="/login-register" id="login-register" class="selectpicker show-tick form-control text-white text-center" style="background-color: #b0b435;">logout</a> -->
+                        <%}else{%>
+                        <a href="/login-register" id="login-register" class="selectpicker show-tick form-control text-white" style="background-color: #b0b435;">login/register </a>
+                        <%}%>
+                    </div>
                     <div class="text-slid-box">
                         <div id="offer-box" class="carouselTicker">
                             <ul class="offer-box">
@@ -158,25 +168,16 @@
             <div class="side">
                 <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                 <li class="cart-box">
-                    <ul class="cart-list">
-                        <li>
+                    <ul id="mycart" class="cart-list">
+                        <!-- <li>
                             <a href="#" class="photo"><img src="public/images/img-pro-01.jpg" class="cart-thumb" alt="" /></a>
                             <h6><a href="#">Delica omtantur </a></h6>
                             <p>1x - <span class="price">$80.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="public/images/img-pro-02.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Omnes ocurreret</a></h6>
-                            <p>1x - <span class="price">$60.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="public/images/img-pro-03.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Agam facilisis</a></h6>
-                            <p>1x - <span class="price">$40.00</span></p>
-                        </li>
+                        </li>     -->
+
                         <li class="total">
-                            <a href="#" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                            <span class="float-right"><strong>Total</strong>: $180.00</span>
+                            <a id="order" class="btn btn-default hvr-hover btn-cart">order</a>
+                            <span id="total" class="float-right"><strong>Total</strong>: 00.00</span>
                         </li>
                     </ul>
                 </li>
@@ -188,13 +189,21 @@
     <!-- End Main Top -->
 
     <!-- Start Top Search -->
-    <div class="top-search">
+    <div class="top-search" >
         <div class="container">
-            <div class="input-group">
+            <form action="/search" method="POST" class="input-group">
                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                <input type="text" class="form-control" placeholder="Search">
-                <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
-            </div>
+                <input type="text" class="form-control" name="search" placeholder="Search">
+                <input type="submit" value="submit" class="btn btn-primary">
+                <span class="pl-2 input-group-addon close-search"><i class="fa fa-times"></i></span>
+            </form>
         </div>
     </div>
+    <% if(locals.searchSucces){%> 
+        <p class="alert alert-success text-center">this item costs <%=searchPrice.toFixed(2).replace( ".", "," )%> € and is available in the shop section</p>
+    <%}%>
+    <% if(locals.searchEchec){%> 
+        <p class="alert alert-danger text-center">this item is not available</p>
+    <%}%> 
+
     <!-- End Top Search -->
