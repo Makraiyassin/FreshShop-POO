@@ -4,7 +4,6 @@ const yourorder_router = new express.Router();
 const mycart = require('../models/mycart');
 
 yourorder_router.get("/your-order",async(req, res) => {
-    let orders = await mycart.find({userId:req.session.user._id})
 
     if(req.session){
         res.locals.connect= req.session.connect,
@@ -21,10 +20,16 @@ yourorder_router.get("/your-order",async(req, res) => {
     req.session.searchSucces=undefined;
     req.session.searchPrice= undefined; 
     
-    req.session.errorMail=undefined,
-    req.session.errorPass=undefined,
+    req.session.errorMail=undefined;
+    req.session.errorPass=undefined;
 
-    res.render("your-order",{orders:orders});
+    if(req.session.user){
+        let orders = await mycart.find({userId:req.session.user._id});
+        res.render("your-order",{orders:orders});
+    }else{
+        res.render("your-order");
+
+    }
 });
 
 module.exports = yourorder_router;

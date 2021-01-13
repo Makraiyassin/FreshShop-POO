@@ -31,9 +31,6 @@ checkout_router.get("/checkout",async(req, res) => {
         res.render("checkout");
 
     }
-
-
-    
 });
 
 module.exports = checkout_router;
