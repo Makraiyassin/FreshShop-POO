@@ -10,19 +10,20 @@ const getRoute = (route, file) =>{
         if(req.session){
             res.locals.connect= req.session.connect,
             res.locals.firstname= req.session.firstname,
+
             res.locals.errorMail= req.session.errorMail,
             res.locals.errorPass= req.session.errorPass,
             
             res.locals.searchEchec= req.session.searchEchec,
             res.locals.searchSucces= req.session.searchSucces,
-            res.locals.searchPrice= req.session.searchPrice,
-
-            res.locals.order=req.session.order
+            res.locals.searchPrice= req.session.searchPrice
         };
         req.session.searchEchec=undefined;
         req.session.searchSucces=undefined;
-        req.session.searchPrice= undefined;  
-        req.session.order=undefined; 
+        req.session.searchPrice= undefined; 
+        
+        req.session.errorMail=undefined,
+        req.session.errorPass=undefined,
 
         res.render(file);
     });
@@ -40,12 +41,15 @@ getRoute("/my-account","my-account")
 getRoute("/cart","cart")
 getRoute("/shop-detail","shop-detail")
 getRoute("/wishlist","wishlist")
-getRoute("/checkout","checkout")
 
 getRoute("/login-register","login-register")
 getRoute("/logout","login-register")
 
 getRoute("/search","")
+
+getRoute("/login-security","login-security")
+getRoute("/your-adresses","your-adresses")
+
 
 
 module.exports = router;

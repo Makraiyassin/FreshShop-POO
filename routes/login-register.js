@@ -9,18 +9,25 @@ const User = require("../models/users");
     //REGISTER
 
     LogReg_router.post('/register',async(req,res)=>{
-        let hashpass = await bcrypt.hash(req.body.pass,10)  //bcrypt.compare(<req.body.>loginpass, registerpass)
-        let user = new User({ 
-            firstname: req.body.fname,
-            lastname: req.body.lname,
-            mail: req.body.email,
-            pass: hashpass,
-        });
-        
-        user.save(function (err, user) {
-            if (err){console.log(err);}else{console.log(user);}
-        });
-        res.redirect('/login-register');
+        if(req.body.pass == req.body.confpass){
+            let hashpass = await bcrypt.hash(req.body.pass,10)  
+            let user = new User({ 
+                firstname: req.body.fname,
+                lastname: req.body.lname,
+                mail: req.body.email,
+                pass: hashpass,
+            });
+            
+            user.save(function (err, user) {
+                if (err){console.log(err);}else{console.log("register:",user);}
+            });
+
+            res.redirect('/login-register');   
+        }else{
+            res.redirect('/login-register');   
+        }
+         
+
     })
 
     //LOGIN
@@ -36,23 +43,22 @@ const User = require("../models/users");
             if (verification){
                 req.session.connect = true;
                 req.session.firstname = _user.firstname;
-                console.log(_user);
+                req.session.user=_user;
+                // console.log(_user);
                 console.log('success');
                 res.redirect('/');
             } else {
-                req.session.errorMail = undefined;
                 req.session.errorPass = 'password incorect';
                 res.redirect('back');  
             }
 
         }else{        
-            req.session.errorPass = undefined;
             req.session.errorMail = "email incorrect";
             res.redirect('back');
            
         }
       
-        console.log("test:",req.session);
+        console.log("/login:",req.session);
         
     })
     

@@ -5,18 +5,21 @@ const Mycart = require("../models/mycart");
 
 
 mycart_router.post('/mycart',(req,res)=>{
+    if(req.session.connect){
+        req.session.order=req.body;
+
+        const mycart = new Mycart({
+            userId:req.session.user._id,
+            mycart:req.session.order
+        })
     
-    req.session.order=req.body;
+        mycart.save(function (err, mycart) {
+            if (err){console.log(err);}else{console.log("my cart:",mycart);}
+        });
 
-    const mycart = new Mycart({
-        mycart:req.session.order
-    })
 
-    mycart.save(function (err, mycart) {
-        if (err){console.log(err);}else{console.log(mycart);}
-    });
-    console.log(req.session);
-    res.redirect('back');
+        res.redirect('/your-order');    
+    }
 })
 
 

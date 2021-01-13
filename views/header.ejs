@@ -169,7 +169,11 @@
                 <li class="cart-box">
                     <ul id="mycart" class="cart-list">
                         <li class="total">
-                            <a id="order" class="btn btn-default hvr-hover btn-cart">order</a>
+                            <%if(locals.connect){%>
+                            <a href="/checkout" id="order" class="btn btn-default hvr-hover btn-cart">order</a>
+                            <%}else{%>
+                            <a href="/login-register" class="btn btn-default hvr-hover btn-cart">login</a>
+                            <%}%>
                             <span id="total" class="float-right"><strong>Total</strong>: 00.00</span>
                         </li>
                     </ul>

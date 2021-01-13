@@ -13,6 +13,9 @@ const contact_router=  require('./routes/contact');
 
 const mycart_router=  require('./routes/mycart');
 const search_router=  require('./routes/search');
+const yourorder_router=  require('./routes/your-order');
+const checkout_router=  require('./routes/checkout');
+
 
 
 //CONNECTION A LA BASE DE DONNEE
@@ -49,6 +52,10 @@ app.set('view engine','ejs');
     app.use(contact_router)
     app.use(mycart_router)
     app.use(search_router)
+    app.use(yourorder_router)
+    app.use(checkout_router)
+
+
 
 
 
