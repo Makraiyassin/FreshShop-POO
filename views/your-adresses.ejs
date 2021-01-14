@@ -9,18 +9,18 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="firstName">First name *</label>
-                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                <input type="text" class="form-control" id="firstName" placeholder="" value="<%=user.firstname%>" readonly>
                 <div class="invalid-feedback"> Valid first name is required. </div>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="lastName">Last name *</label>
-                <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                <input type="text" class="form-control" id="lastName" placeholder="" value="<%=user.lastname%>" readonly>
                 <div class="invalid-feedback"> Valid last name is required. </div>
             </div>
         </div>
         <div class="mb-3">
             <label for="email">Email Address *</label>
-            <input type="email" class="form-control" id="email" placeholder="">
+            <input type="email" class="form-control" id="email" placeholder="" value="<%=user.mail%>" readonly>
             <div class="invalid-feedback"> Please enter a valid email address for shipping updates. </div>
         </div>
         <div class="mb-3">
@@ -32,16 +32,16 @@
             <div class="col-md-5 mb-3">
                 <label for="country">Country *</label>
                 <select class="wide w-100" id="country">
-                <option value="Choose..." data-display="Select">Choose...</option>
-                <option value="United States">United States</option>
+                <!-- <option value="Choose..." data-display="Select">Choose...</option> -->
+                <option value="United States">Belgium</option>
             </select>
                 <div class="invalid-feedback"> Please select a valid country. </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="state">State *</label>
                 <select class="wide w-100" id="state">
-                <option data-display="Select">Choose...</option>
-                <option>California</option>
+                <!-- <option data-display="Select">Choose...</option> -->
+                <option>Brussels</option>
             </select>
                 <div class="invalid-feedback"> Please provide a valid state. </div>
             </div>

@@ -36,39 +36,38 @@
                             <tbody>
                             <%if(locals.orders){%>
                                 <% orders.forEach(order =>{ %>
-                                    <% order.mycart.product.forEach(element =>{ %>
-                                <tr>
+                                <tr class="productcart" data-id="<%=order._id%>">
                                     <td class="thumbnail-img">
                                         <a href="#">
-                                            <img class="img-fluid" src="../<%= element.img%>" alt="" />
+                                            <img class="img-fluid" src="../<%= order.mycart.img%>" alt="" />
                                         </a>
                                     </td>
                                     <td class="name-pr">
                                         <a href="#">
-                                            <%=element.name%>
+                                            <%=order.mycart.name%>
                                         </a>
                                     </td>
                                     <td class="price-pr">
-                                        <p><%=element.price%></p>
+                                        <p class="productprice"><%=order.mycart.price%></p>
                                     </td>
-                                    <td class="quantity-box"><input type="number" size="4" value="<%=element.quantity%>" min="0" step="1" class="c-input-text qty text"></td>
+                                    <td class="quantity-box"><input type="number" size="4" value="<%=order.mycart.quantity%>" min="0" step="1" class="c-input-text qty text  productquantity"></td>
                                     <td class="total-pr">
-                                        <p>$<%= element.price*element.quantity %></p>
+                                        <p>$ <span class="totalproduct"><%= order.mycart.price*order.mycart.quantity %></span></p>
                                     </td>
                                     <td class="remove-pr">
-                                        <a href="#">
-                                    <i class="fas fa-times"></i>
-                                </a>
+                                        <a href="/remove/<%=order._id%>">
+                                            <i class="fas fa-times"></i>
+                                        </a>
                                     </td>
                                 </tr>
-                                    <%})%>
+                                
                                 <%})%>
                             <%}%>
                             </tbody>
                         </table>
                         <div class="d-flex">
                             <div class="font-weight-bold">Total</div>
-                            <div class="ml-auto font-weight-bold">$ 0 </div>
+                            <div class="ml-auto font-weight-bold">$ <span id="totalcart">0</span> </div>
                         </div>
                         <hr class="my-1">
                     </div>
@@ -110,7 +109,7 @@
                                 <label for="country">Country *</label>
                                 <select class="wide w-100" id="country">
                                 <option value="Choose..." data-display="Select">Choose...</option>
-                                <option value="United States">United States</option>
+                                <option value="Belgium">Belgium</option>
                             </select>
                                 <div class="invalid-feedback"> Please select a valid country. </div>
                             </div>
@@ -118,7 +117,7 @@
                                 <label for="state">State *</label>
                                 <select class="wide w-100" id="state">
                                 <option data-display="Select">Choose...</option>
-                                <option>California</option>
+                                <option>Brussels</option>
                             </select>
                                 <div class="invalid-feedback"> Please provide a valid state. </div>
                             </div>
@@ -216,7 +215,7 @@
                             <hr class="my-1">
                             <div class="d-flex">
                                 <h4>Sub Total</h4>
-                                <div class="ml-auto font-weight-bold"> $ 0 </div>
+                                <div  class="ml-auto font-weight-bold"> $ <span id="subtotal">0</span></div>
                             </div>
                             <hr class="my-1">
                             <div class="d-flex">
@@ -226,7 +225,7 @@
                             <hr>
                             <div class="d-flex gr-total">
                                 <h5>Grand Total</h5>
-                                <div class="ml-auto h5"> $ 0 </div>
+                                <div class="ml-auto h5"> $ <span id="grandtotal">0</span> </div>
                             </div>
                             <hr> </div>
                     </div>

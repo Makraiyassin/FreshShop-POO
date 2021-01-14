@@ -6,11 +6,11 @@ const Mycart = require("../models/mycart");
 
 mycart_router.post('/mycart',(req,res)=>{
     if(req.session.connect){
-        req.session.order=req.body;
-
+        // req.session.order=req.body;
+        
         const mycart = new Mycart({
             userId:req.session.user._id,
-            mycart:req.session.order
+            mycart:req.body
         })
     
         mycart.save(function (err, mycart) {

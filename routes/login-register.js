@@ -42,9 +42,8 @@ const User = require("../models/users");
 
             if (verification){
                 req.session.connect = true;
-                req.session.firstname = _user.firstname;
                 req.session.user=_user;
-                // console.log(_user);
+
                 console.log('success');
                 res.redirect('/');
             } else {

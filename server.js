@@ -1,9 +1,8 @@
 const express = require('express');
 const app = express();
-// const bcrypt = require('bcrypt')
 const bodyParser = require('body-parser');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 //ROUTES (importe les route defini dans le dossier "routes")
 const router = require('./routes/router');
@@ -13,7 +12,7 @@ const contact_router=  require('./routes/contact');
 
 const mycart_router=  require('./routes/mycart');
 const search_router=  require('./routes/search');
-const yourorder_router=  require('./routes/your-order');
+
 const checkout_router=  require('./routes/checkout');
 
 
@@ -52,7 +51,6 @@ app.set('view engine','ejs');
     app.use(contact_router)
     app.use(mycart_router)
     app.use(search_router)
-    app.use(yourorder_router)
     app.use(checkout_router)
 
 

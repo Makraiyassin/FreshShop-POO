@@ -10,6 +10,8 @@ let sum;
 
 let badge=0;
 
+let mycartfetch = {}
+
 document.querySelectorAll(".addtocart").forEach(element=>{
 
     element.addEventListener("click", function() {
@@ -42,6 +44,17 @@ document.querySelectorAll(".addtocart").forEach(element=>{
             //======================================================================================================
             //CART (PAGE)
 
+            mycartfetch = {name:productname,img:productimg,price:productprice, quantity:1}
+
+            fetch('/mycart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(mycartfetch)
+            })
+
+
 
         }else{
             //====================================================================================================
@@ -70,42 +83,19 @@ document.querySelectorAll(".addtocart").forEach(element=>{
             document.querySelector('#badge').textContent=badge
             //======================================================================================================
             //CART (PAGE)
+            mycartfetch = {name:productname,img:productimg,price:productprice, quantity:1}
 
-            // document.querySelector("#mybasket").insertAdjacentHTML("afterbegin",
-
-            // `<tr id="mybasket${productname}">
-            //     <td id="imageBasket${productname}" class="thumbnail-img">
-            //             <img class="img-fluid" src="${productimg}" alt="" />
-            //     </td>
-            //     <td id="nameBasket${productname}" class="name-pr">
-            //         ${productname}
-            //     </td>
-            //     <td class="price-pr">
-            //         <p>$ <span id="priceBasket${productname}">${productprice}</span></p>
-            //     </td>
-            //     <td id="quantityBasket${productname}" class="quantity-box"><input type="number" size="4" value="1" min="0" step="1" class="c-input-text qty text"></td>
-            //     <td id="totalBasket${productname}" class="total-pr">
-            //         <p>${productprice}</p>
-            //     </td>
-            //     <td class="remove-pr">
-            //         <a id="removeBasket${productname}">
-            //             <i class="fas fa-times"></i>
-            //         </a>
-            //     </td>
-            // </tr>`)
-
+            fetch('/mycart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(mycartfetch)
+            })
         }
     })    
 })
 document.getElementById("order").addEventListener("click", function(){
-//let url = http://localhost:3000
-    fetch('/mycart', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(mycart)
-    })
 
     //REINITIALISATION DU PANIER=================================================
 
@@ -121,3 +111,31 @@ document.getElementById("order").addEventListener("click", function(){
     arrayPrice =[];
     //===========================================================================
 })
+
+//CHECKOUT
+
+let totalproduct=[];
+
+document.querySelectorAll(".totalproduct").forEach(element=>{totalproduct.push(Number(element.textContent))})
+console.log(totalproduct);
+
+document.querySelector("#totalcart").textContent=totalproduct.reduce((a, b) => a + b, 0)
+document.querySelector("#subtotal").textContent=totalproduct.reduce((a, b) => a + b, 0)
+document.querySelector("#grandtotal").textContent=totalproduct.reduce((a, b) => a + b, 0)
+
+
+// let products =[]
+
+// document.querySelectorAll(".productcart").forEach(element=>{
+//    products.push(element.dataset.id) 
+// })
+
+// console.log(products);
+
+document.querySelectorAll(".productquantity").forEach(element =>{
+    element.addEventListener("change",function(){
+        element.setAttribute("value",element.value)
+        
+    })
+})
+

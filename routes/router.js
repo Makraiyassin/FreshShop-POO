@@ -8,8 +8,8 @@ const getRoute = (route, file) =>{
     router.get(route,(req, res) => {
 
         if(req.session){
-            res.locals.connect= req.session.connect,
-            res.locals.firstname= req.session.firstname,
+            // res.locals.connect = req.session.connect,
+            // res.locals.user = req.session.user,
 
             res.locals.errorMail= req.session.errorMail,
             res.locals.errorPass= req.session.errorPass,
@@ -18,14 +18,14 @@ const getRoute = (route, file) =>{
             res.locals.searchSucces= req.session.searchSucces,
             res.locals.searchPrice= req.session.searchPrice
         };
-        req.session.searchEchec=undefined;
-        req.session.searchSucces=undefined;
-        req.session.searchPrice= undefined; 
-        
         req.session.errorMail=undefined,
         req.session.errorPass=undefined,
 
-        res.render(file);
+        req.session.searchEchec=undefined;
+        req.session.searchSucces=undefined;
+        req.session.searchPrice= undefined; 
+
+        res.render(file,{ user:req.session.user,connect:req.session.connect});
     });
         
 }
@@ -49,6 +49,8 @@ getRoute("/search","")
 
 getRoute("/login-security","login-security")
 getRoute("/your-adresses","your-adresses")
+getRoute("/your-order","your-order")
+
 
 
 
