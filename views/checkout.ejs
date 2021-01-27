@@ -36,7 +36,7 @@
                             <tbody>
                             <%if(locals.orders){%>
                                 <% orders.forEach(order =>{ %>
-                                <tr class="productcart" data-id="<%=order._id%>">
+                                <tr class="productcart" id="_<%=order._id%>">
                                     <td class="thumbnail-img">
                                         <a href="#">
                                             <img class="img-fluid" src="../<%= order.mycart.img%>" alt="" />

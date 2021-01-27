@@ -126,16 +126,22 @@ document.querySelector("#grandtotal").textContent=totalproduct.reduce((a, b) => 
 
 // let products =[]
 
-// document.querySelectorAll(".productcart").forEach(element=>{
-//    products.push(element.dataset.id) 
-// })
+document.querySelectorAll(".productcart").forEach(element=>{
+    console.log(document.querySelector(`#${element.id}`));
+    
+    document.getElementById(`${element.id} .productquantity`).addEventListener("change",function(){
+        console.log(element.id);
+        console.log("ok");
+    })
+})
 
 // console.log(products);
 
-document.querySelectorAll(".productquantity").forEach(element =>{
-    element.addEventListener("change",function(){
-        element.setAttribute("value",element.value)
+// document.querySelectorAll(".productquantity").forEach(element =>{
+//     element.addEventListener("change",function(){
+//         element.setAttribute("value",element.value)
         
-    })
-})
+//     })
+// })
+
 
